@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:ghasedak/pages/channel_info_page.dart';
+import 'package:ghasedak/pages/channel_info/presentation/pages/channel_info.dart';
 
 class ChannelPage extends StatefulWidget {
   static const String pageRoute = '/channel';

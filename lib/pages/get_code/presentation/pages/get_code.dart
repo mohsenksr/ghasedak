@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/get_info.dart';
-import 'package:ghasedak/pages/login_page.dart';
-import 'package:ghasedak/pages/register_page.dart';
+import 'package:ghasedak/pages/get_info/presentation/pages/get_info.dart';
+import 'package:ghasedak/pages/login/presentation/pages/login.dart';
+import 'package:ghasedak/pages/register/presentation/pages/register.dart';
 
 class GetCodePage extends StatefulWidget {
   static const String pageRoute = '/get-code';

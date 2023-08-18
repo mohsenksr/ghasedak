@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/channel_page.dart';
+import 'package:ghasedak/pages/channel/presentation/pages/channel.dart';
 
 class ChannelItem extends StatefulWidget {
   final int id;

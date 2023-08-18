@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/login_page.dart';
-import 'package:ghasedak/pages/register_page.dart';
+import 'package:ghasedak/pages/login/presentation/pages/login.dart';
+import 'package:ghasedak/pages/register/presentation/pages/register.dart';
 
 class GetInfoPage extends StatefulWidget {
   static const String pageRoute = '/get-info';

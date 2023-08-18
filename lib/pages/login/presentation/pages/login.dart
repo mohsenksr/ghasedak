@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/main_page.dart';
-import 'package:ghasedak/pages/register_page.dart';
+import 'package:ghasedak/pages/channels_list/presentation/pages/channels_list.dart';
+import 'package:ghasedak/pages/register/presentation/pages/register.dart';
 
 class LoginPage extends StatefulWidget {
   static const String pageRoute = '/login';
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.pushReplacementNamed(
                     context,
-                    MainPage.pageRoute,
+                    ChannelsListPage.pageRoute,
                   );
                 },
                 child: Text("ورود"),

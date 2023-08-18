@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/get_code_page.dart';
-import 'package:ghasedak/pages/login_page.dart';
+import 'package:ghasedak/pages/get_code/presentation/pages/get_code.dart';
+import 'package:ghasedak/pages/login/presentation/pages/login.dart';
 
 class RegisterPage extends StatefulWidget {
   static const String pageRoute = '/register';

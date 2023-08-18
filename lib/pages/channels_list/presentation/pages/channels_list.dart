@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ghasedak/pages/login_page.dart';
+import 'package:ghasedak/pages/login/presentation/pages/login.dart';
 import 'package:ghasedak/widgets/channel_item.dart';
 
-class MainPage extends StatefulWidget {
-  static const String pageRoute = '/main';
-  const MainPage({super.key});
+class ChannelsListPage extends StatefulWidget {
+  static const String pageRoute = '/channels-list';
+  const ChannelsListPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<ChannelsListPage> createState() => _ChannelsListPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _ChannelsListPageState extends State<ChannelsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

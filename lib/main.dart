@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ghasedak/core/routes.dart';
 import 'package:ghasedak/core/styles/themes.dart';
-import 'package:ghasedak/pages/login_page.dart';
+import 'package:ghasedak/core/utils/injection.dart';
+import 'package:ghasedak/pages/login/presentation/pages/login.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ghasedak/pages/main/presentation/pages/main_page.dart';
 
 void main() {
+  configureDependencies();
+
   runApp(const MyApp());
 }
 
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: routes, 
+      routes: routes,
       initialRoute: LoginPage.pageRoute,
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
