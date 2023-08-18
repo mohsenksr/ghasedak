@@ -1,12 +1,10 @@
 // import 'package:equatable/equatable.dart';
+// import 'package:flutter/material.dart';
+// import 'package:ghasedak/core/utils/custom_cubit.dart';
 
 // part 'main_state.dart';
 
+// class MainCubit extends CustomCubit<MainState> {
+//   final PhoneVerificationRepository repository;
 
-
-// class CounterCubit extends Cubit<int> {
-//   CounterCubit() : super(0);
-
-//   void increment() => emit(state + 1);
-//   void decrement() => emit(state - 1);
 // }
