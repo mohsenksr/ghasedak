@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ghasedak/core/utils/injection.dart';
 import 'package:ghasedak/pages/get_info/presentation/pages/get_info.dart';
 import 'package:ghasedak/pages/login/presentation/pages/login.dart';
+import 'package:ghasedak/pages/main/domain/main_cubit.dart';
 import 'package:ghasedak/pages/register/presentation/pages/register.dart';
 
 class GetCodePage extends StatefulWidget {
@@ -12,6 +14,7 @@ class GetCodePage extends StatefulWidget {
 }
 
 class _GetCodePageState extends State<GetCodePage> {
+  final TextEditingController codeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +29,8 @@ class _GetCodePageState extends State<GetCodePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const TextField(
+              TextField(
+                controller: codeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'کد دریافتی',
@@ -40,24 +44,26 @@ class _GetCodePageState extends State<GetCodePage> {
                       MaterialPageRoute(
                           builder: (context) => const GetInfoPage()),
                     );
+                    getIt<MainCubit>()
+                        .sendRegisterationCode(codeController.text);
                   },
                   child: Text("مرحله بعد")),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.popUntil(
-              context,
-              ModalRoute.withName(RegisterPage.pageRoute),
-            );
-            Navigator.pushReplacementNamed(
-              context,
-              LoginPage.pageRoute,
-            );
-          },
-          child: Text("ورود")),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       Navigator.popUntil(
+      //         context,
+      //         ModalRoute.withName(RegisterPage.pageRoute),
+      //       );
+      //       Navigator.pushReplacementNamed(
+      //         context,
+      //         LoginPage.pageRoute,
+      //       );
+      //     },
+      //     child: Text("ورود")),
     );
   }
 }

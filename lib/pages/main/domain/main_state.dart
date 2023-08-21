@@ -1,24 +1,34 @@
-// part of 'main_bloc.dart';
+part of 'main_cubit.dart';
 
-// abstract class MainState extends Equatable {
-//   const MainState();
-// }
+abstract class MainState extends Equatable {
+  const MainState();
+}
 
-// class MainLoadingState extends MainState {
-//   @override
-//   List<Object> get props => ['MainLoadingState'];
-// }
+class MainLoadingState extends MainState {
+  @override
+  List<Object> get props => ['MainLoadingState'];
+}
 
-// class MainLoginState extends MainState {
-//   final String token;
+class MainLoginState extends MainState {
+  final String token;
 
-//   MainLoginState(this.token);  
+  MainLoginState(this.token);  
   
-//   @override
-//   List<Object> get props => ['MainLoginState'];
-// }
+  @override
+  List<Object> get props => ['MainLoginState'];
+}
 
-// class MainUnauthorizedState extends MainState {
-//   @override
-//   List<Object> get props => ['MainUnauthorizedState'];
-// }
+class MainLoginRequiredState extends MainState {
+  @override
+  List<Object> get props => ['MainLoginRequiredState'];
+}
+
+class MainRegisterRequiredState extends MainState {
+  @override
+  List<Object> get props => ['MainRegisterRequiredState'];
+}
+
+class MainErrorState extends MainState {
+  @override
+  List<Object> get props => ['MainErrorState'];
+}

@@ -10,10 +10,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class LocalDataSource {
-  final String tokenBoxName = 'tokenBox';
-  final String biometricBoxName = 'biometricBox';
-  final String initialChildBoxName = 'initialChildBox';
-  final String initialPhoneNumberBoxName = 'initialPhoneNumberBox';
 
   init() async {
     final watch = Stopwatch()..start();
