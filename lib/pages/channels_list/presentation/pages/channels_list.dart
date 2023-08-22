@@ -150,7 +150,7 @@ class _ChannelsListPageState extends State<ChannelsListPage> {
               ],
             ),
             ...widget.channels["owner"]!.map(
-              (e) => ChannelItem(e.id, e.title, e.lastContent),
+              (e) => ChannelItem(e.id, e.title, e.lastContent, "owner"),
             ),
             Container(height: 30),
             const Row(
@@ -161,7 +161,7 @@ class _ChannelsListPageState extends State<ChannelsListPage> {
               ],
             ),
             ...widget.channels["admin"]!.map(
-              (e) => ChannelItem(e.id, e.title, e.lastContent),
+              (e) => ChannelItem(e.id, e.title, e.lastContent, "admin"),
             ),
             Container(height: 30),
             const Row(
@@ -172,7 +172,7 @@ class _ChannelsListPageState extends State<ChannelsListPage> {
               ],
             ),
             ...widget.channels["member"]!.map(
-              (e) => ChannelItem(e.id, e.title, e.lastContent),
+              (e) => ChannelItem(e.id, e.title, e.lastContent, "member"),
             ),
           ],
         ),

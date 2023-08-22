@@ -12,7 +12,6 @@ part 'profile_state.dart';
 @singleton
 class ProfileCubit extends CustomCubit<ProfileState> {
   final ProfileRepository repository;
-  String? phone;
 
   ProfileCubit(this.repository) : super(ProfileInitialState());
 

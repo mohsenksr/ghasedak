@@ -15,6 +15,7 @@ class _ChannelPageState extends State<ChannelPage> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final mode = args["mode"];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -33,7 +34,7 @@ class _ChannelPageState extends State<ChannelPage> {
               child: Container(
                 margin: EdgeInsets.all(20),
                 child: Icon(
-                  Icons.admin_panel_settings,
+                  mode == "member" ? Icons.info : Icons.admin_panel_settings,
                   color: Colors.black,
                 ),
               ),

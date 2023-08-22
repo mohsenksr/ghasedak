@@ -5,7 +5,8 @@ class ChannelItem extends StatefulWidget {
   final int id;
   final String title;
   final String datetime;
-  const ChannelItem(this.id, this.title, this.datetime, {super.key});
+  final String mode;
+  const ChannelItem(this.id, this.title, this.datetime, this.mode, {super.key});
 
   @override
   State<ChannelItem> createState() => _ChannelItemState();
@@ -21,7 +22,7 @@ class _ChannelItemState extends State<ChannelItem> {
             Navigator.pushNamed(
               context,
               ChannelPage.pageRoute,
-              arguments: {"title": widget.title, "id": widget.id},
+              arguments: {"title": widget.title, "id": widget.id, "mode": widget.mode},
             );
           },
           child: Container(

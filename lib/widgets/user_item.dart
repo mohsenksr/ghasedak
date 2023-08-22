@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UserItem extends StatefulWidget {
-  final int id;
+  final String id;
   final String name;
   final int? percent;
   const UserItem(this.id, this.name, {super.key, this.percent});
