@@ -14,7 +14,6 @@ abstract class RestDataSource {
   /// this field is used for getting token if the user is already signed in
   final LocalDataSource configDataSource = getIt<LocalDataSource>();
 
-
   Future<Map<String, dynamic>> get(String urlString,
       {bool utf8Support = true,
       bool withToken = true,
@@ -100,7 +99,7 @@ abstract class RestDataSource {
       HttpHeaders.acceptHeader: "application/json",
     };
     if (withToken) {
-      final token = "TOKEN"; //TODO: add token
+      final token = await configDataSource.getToken() ?? "TOKEN";
       if (token != null) {
         headers.addAll({
           HttpHeaders.authorizationHeader: "Bearer " + token,
@@ -154,5 +153,4 @@ abstract class RestDataSource {
       return json.decode(response.body.toString());
     }
   }
-
 }

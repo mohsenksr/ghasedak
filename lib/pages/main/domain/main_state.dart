@@ -10,9 +10,9 @@ class MainLoadingState extends MainState {
 }
 
 class MainLoginState extends MainState {
-  final String token;
+  final Map<String, List<Channel>> channels;
 
-  MainLoginState(this.token);  
+  MainLoginState(this.channels);  
   
   @override
   List<Object> get props => ['MainLoginState'];

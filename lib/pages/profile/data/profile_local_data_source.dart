@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
-class MainLocalDataSource extends LocalDataSource {
+class ProfileLocalDataSource extends LocalDataSource {
   @override
   exec() async {
     super.exec();

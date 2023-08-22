@@ -4,6 +4,7 @@ import 'package:ghasedak/core/utils/injection.dart';
 import 'package:ghasedak/pages/channels_list/presentation/pages/channels_list.dart';
 import 'package:ghasedak/pages/login/presentation/pages/login.dart';
 import 'package:ghasedak/pages/main/domain/main_cubit.dart';
+import 'package:ghasedak/pages/profile/domain/profile_cubit.dart';
 import 'package:ghasedak/pages/register/presentation/pages/register.dart';
 
 class MainPage extends StatefulWidget {
@@ -38,12 +39,23 @@ class _MainPageState extends State<MainPage> {
             } else if (state is MainRegisterRequiredState) {
               return RegisterPage();
             } else if (state is MainLoginState) {
-              return ChannelsListPage();
+              return ChannelsListPage(state.channels);
             }
             return Container(
-              width: 100,
-              height: 100,
-              color: Colors.blue,
+              child: Column(
+                children: [
+                  Text("مشکلی پیش آمده‌است."),
+                  Container(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      getIt<MainCubit>().getChannels();
+                    },
+                    child: Text("بارگیری دوباره صفحه"),
+                  ),
+                ],
+              ),
             );
           }),
         ),

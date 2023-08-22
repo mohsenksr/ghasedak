@@ -14,8 +14,13 @@ import 'package:injectable/injectable.dart' as _i2;
 
 import '../../pages/main/data/main_local_data_source.dart' as _i6;
 import '../../pages/main/data/main_remote_data_source.dart' as _i7;
-import '../../pages/main/domain/main_cubit.dart' as _i9;
+import '../../pages/main/domain/main_cubit.dart' as _i12;
 import '../../pages/main/domain/repository/main_repository.dart' as _i8;
+import '../../pages/profile/data/profile_local_data_source.dart' as _i9;
+import '../../pages/profile/data/profile_remote_data_source.dart' as _i10;
+import '../../pages/profile/domain/profile_cubit.dart' as _i13;
+import '../../pages/profile/domain/repositories/profile_repository.dart'
+    as _i11;
 import '../domain/data/base_local_data_source.dart' as _i4;
 import 'alert_handler/alert_handler_cubit.dart' as _i3;
 import 'log_util.dart' as _i5;
@@ -40,6 +45,15 @@ _i1.GetIt $initGetIt(
     gh<_i6.MainLocalDataSource>(),
     gh<_i7.MainRemoteDataSource>(),
   ));
-  gh.singleton<_i9.MainCubit>(_i9.MainCubit(gh<_i8.MainRepository>()));
+  gh.singleton<_i9.ProfileLocalDataSource>(_i9.ProfileLocalDataSource());
+  gh.factory<_i10.ProfileRemoteDataSource>(
+      () => _i10.ProfileRemoteDataSource());
+  gh.singleton<_i11.ProfileRepository>(_i11.ProfileRepository(
+    gh<_i9.ProfileLocalDataSource>(),
+    gh<_i10.ProfileRemoteDataSource>(),
+  ));
+  gh.singleton<_i12.MainCubit>(_i12.MainCubit(gh<_i8.MainRepository>()));
+  gh.singleton<_i13.ProfileCubit>(
+      _i13.ProfileCubit(gh<_i11.ProfileRepository>()));
   return getIt;
 }
