@@ -52,4 +52,18 @@ class ProfileRemoteDataSource extends RestDataSource {
       return Left(e);
     }
   }
+
+  Future<Either<Alert, bool>> clearAccountBalance() async {
+    try {
+      final response = await get('channel-admin/clear/',
+          withToken: true, autoHandleWithStatusCode: false);
+
+      if (response['code'] == 200) {
+        return Right(true);
+      }
+      return Left(FetchDataFailure('مشکلی پیش آمده‌است.'));
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
 }

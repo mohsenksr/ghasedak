@@ -133,7 +133,7 @@ class _ChannelsListPageState extends State<ChannelsListPage> {
           onPressed: () {
             Navigator.of(context).pushNamed(ProfilePage.pageRoute);
           },
-          child: Text("به‌روزرسانی پروفایل"),
+          child: Text("پروفایل"),
         ),
         Container(
           height: 30,

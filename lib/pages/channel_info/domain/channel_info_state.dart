@@ -17,12 +17,13 @@ class ChannelInfoLoadingState extends ChannelInfoState {
 class ChannelInfoShowState extends ChannelInfoState {
   final ChannelDescription description;
   final Map<String, dynamic>? adminData;
+  final List<Subscription>? subscriptions;
 
-  ChannelInfoShowState(this.description, {this.adminData});
+  ChannelInfoShowState(this.description, {this.adminData, this.subscriptions});
 
   @override
   List<Object> get props =>
-      ['ChannelInfoShowState', description, adminData ?? ""];
+      ['ChannelInfoShowState', description, adminData ?? "", subscriptions ?? ""];
 }
 
 class ChannelInfoErrorState extends ChannelInfoState {

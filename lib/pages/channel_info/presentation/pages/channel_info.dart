@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ghasedak/core/utils/injection.dart';
+import 'package:ghasedak/pages/channel_info/data/models/channel_subscription.dart';
 import 'package:ghasedak/pages/channel_info/domain/channel_info_cubit.dart';
+import 'package:ghasedak/pages/channel_info/presentation/widgets/create_subscription_widget.dart';
 import 'package:ghasedak/widgets/subscription_item.dart';
 import 'package:ghasedak/widgets/user_item.dart';
 
 class ChannelInfoPage extends StatefulWidget {
   static const String pageRoute = '/channel-info';
-  const ChannelInfoPage({super.key});
+  final ChannelInfoCubit channelInfoCubit = getIt<ChannelInfoCubit>();
+
+  ChannelInfoPage({super.key});
 
   @override
   State<ChannelInfoPage> createState() => _ChannelInfoPageState();
@@ -30,7 +34,7 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
         child: MultiBlocProvider(
           providers: [
             BlocProvider<ChannelInfoCubit>(
-              create: (BuildContext context) => getIt<ChannelInfoCubit>(),
+              create: (BuildContext context) => widget.channelInfoCubit,
             )
           ],
           child: BlocBuilder<ChannelInfoCubit, ChannelInfoState>(
@@ -38,13 +42,13 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
             print(state);
             if (state is ChannelInfoInitialState) {
               if (mode == "owner") {
-                getIt<ChannelInfoCubit>().getDescription(args["id"], true);
+                widget.channelInfoCubit.getDescription(args["id"], true);
               } else {
-                getIt<ChannelInfoCubit>().getDescription(args["id"], false);
+                widget.channelInfoCubit.getDescription(args["id"], false);
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (state is ChannelInfoLoadingState) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (state is ChannelInfoShowState) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +68,7 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
                     state.description.bio,
                     textAlign: TextAlign.center,
                   ),
-                  Divider(height: 15),
+                  Container(height: 15),
                   mode == "owner"
                       ? Column(
                           children: [
@@ -82,23 +86,61 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
                               (e) => UserItem("$e.id", e.fullName,
                                   percent: e.percent),
                             ),
-                            // UserItem(
-                            //   12,
-                            //   "ادمین ادمین‌زاده",
-                            //   percent: 10,
-                            // ),
-                            // UserItem(
-                            //   20,
-                            //   "مدیر مدیرپور",
-                            //   percent: 15,
-                            // ),
-                            // UserItem(
-                            //   12,
-                            //   "مدیر مدیریان",
-                            //   percent: 18,
-                            // ),
+                            Container(height: 20),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      final TextEditingController
+                                          usernameController =
+                                          TextEditingController();
+                                      final TextEditingController
+                                          percentController =
+                                          TextEditingController();
+
+                                      return AlertDialog(
+                                        content: Container(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              TextField(
+                                                controller: usernameController,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  labelText: 'نام کاربری مدیر',
+                                                ),
+                                              ),
+                                              Container(height: 30),
+                                              TextField(
+                                                controller: percentController,
+                                                decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  labelText: 'درصد بهره‌وری',
+                                                ),
+                                              ),
+                                              Container(height: 30),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  widget.channelInfoCubit
+                                                      .createAdmin(
+                                                    state.description.id,
+                                                    usernameController.text,
+                                                    int.parse(
+                                                        percentController.text),
+                                                  );
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text("افزودن مدیر"),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
                               child: Text("افزودن مدیر"),
                             ),
                             Container(height: 50),
@@ -113,14 +155,22 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
                               ],
                             ),
                             ...state.adminData!["subscriptions"].map(
-                              (e) =>
-                                  SubscriptionItem(e.id, e.duration, e.price),
+                              (Subscription e) => SubscriptionItem(
+                                e.id,
+                                e.duration.persianString,
+                                e.price,
+                              ),
                             ),
-                            // SubscriptionItem(12, "اشتراک یک ماهه", 50000),
-                            // SubscriptionItem(12, "اشتراک سه ماهه", 120000),
-                            // SubscriptionItem(12, "اشتراک شش ماهه", 200000),
+                            Container(height: 20),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CreateSubscriptionWidget(
+                                          widget.channelInfoCubit, state);
+                                    });
+                              },
                               child: Text("افزودن اشتراک"),
                             ),
                             Container(height: 50),
@@ -137,21 +187,34 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
                             ...state.adminData!["members"].map(
                               (e) => UserItem(e.username, e.fullName),
                             ),
-                            // UserItem(
-                            //   12,
-                            //   "کاربر کاربریان",
-                            // ),
-                            // UserItem(
-                            //   20,
-                            //   "یوزر یوزریان",
-                            // ),
-                            // UserItem(
-                            //   12,
-                            //   "مخاطب مخاطب‌زاده",
-                            // ),
                           ],
                         )
-                      : Container(),
+                      : Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(child: Divider()),
+                                Text(
+                                  "اشتراک‌های کانال",
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                                Expanded(child: Divider()),
+                              ],
+                            ),
+                            ...state.subscriptions!.map(
+                              (Subscription e) => SubscriptionItem(
+                                e.id,
+                                e.duration.persianString,
+                                e.price,
+                                adminMode: false,
+                                buyCallback: () {
+                                  widget.channelInfoCubit.buySubscription(e.id);
+                                },
+                              ),
+                            ),
+                            Container(height: 20),
+                          ],
+                        ),
                 ],
               );
             }
@@ -164,8 +227,7 @@ class _ChannelInfoPageState extends State<ChannelInfoPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      getIt<ChannelInfoCubit>()
-                          .getDescription(args["id"], false);
+                      widget.channelInfoCubit.getDescription(args["id"], false);
                     },
                     child: Text("بارگیری دوباره صفحه"),
                   ),

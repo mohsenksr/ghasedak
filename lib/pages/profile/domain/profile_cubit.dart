@@ -25,6 +25,16 @@ class ProfileCubit extends CustomCubit<ProfileState> {
     });
   }
 
+  clearAccountBalance() async {
+    emit(ProfileLoadingState());
+
+    failureOrSuccess<bool>(await repository.clearAccountBalance(), (profile) {
+      getProfile();
+    }, (failure) {
+      emit(ProfileErrorState());
+    });
+  }
+
   updateProfile(
     String firstName,
     String lastName,

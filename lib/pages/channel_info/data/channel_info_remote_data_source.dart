@@ -78,4 +78,87 @@ class ChannelInfoRemoteDataSource extends RestDataSource {
       return Left(e);
     }
   }
+
+  Future<Either<Alert, List<Subscription>>> getSubscriptions(int id) async {
+    try {
+      final response = await get('/channel/subscription/get/$id/',
+          withToken: true, autoHandleWithStatusCode: false);
+
+      if (response['code'] == 200) {
+        List<Subscription> subscriptions = response["subscriptions"]
+            .map<Subscription>((e) => Subscription.fromJson(e))
+            .toList();
+
+        return Right(subscriptions);
+      }
+      return Left(FetchDataFailure('مشکلی پیش آمده‌است.'));
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
+
+  Future<Either<Alert, bool>> createAdmin(
+      int channelId, String username, int percent) async {
+    try {
+      final body = {
+        "channel_id": channelId,
+        "admin_username": username,
+        "percent": percent
+      };
+
+      final response = await post(
+          body: body,
+          '/channel-admin/create/',
+          withToken: true,
+          autoHandleWithStatusCode: false);
+
+      if (response['code'] == 201) {
+        return Right(true);
+      }
+      return Left(FetchDataFailure('مشکلی پیش آمده‌است.'));
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
+
+  Future<Either<Alert, bool>> createSubscription(
+      int channelId, int price, SubscriptionDuration duration) async {
+    try {
+      final body = {
+        "channel_id": channelId,
+        "duration": duration.stringMode,
+        "price": price
+      };
+
+      final response = await post(
+          body: body,
+          '/channel/subscription/create/',
+          withToken: true,
+          autoHandleWithStatusCode: false);
+
+      if (response['code'] == 201) {
+        return Right(true);
+      }
+      return Left(FetchDataFailure('مشکلی پیش آمده‌است.'));
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
+
+  Future<Either<Alert, bool>> buySubscription(
+      int subscriptionId) async {
+    try {
+      final response = await get(
+          '/channel/subscription/sell/$subscriptionId/',
+          withToken: true,
+          autoHandleWithStatusCode: false);
+
+      if (response['code'] == 200) {
+        return Right(true);
+      }
+      return Left(FetchDataFailure('مشکلی پیش آمده‌است.'));
+    } on Failure catch (e) {
+      return Left(e);
+    }
+  }
 }

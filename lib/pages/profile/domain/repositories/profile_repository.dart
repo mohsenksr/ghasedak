@@ -33,4 +33,8 @@ class ProfileRepository
   Future<Either<Alert, Profile>> getProfile() async {
     return remoteDataSource!.getProfile();
   }
+  
+  Future<Either<Alert, bool>> clearAccountBalance() async {
+    return remoteDataSource!.clearAccountBalance();
+  }
 }

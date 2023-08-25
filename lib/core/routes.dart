@@ -16,6 +16,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   ProfilePage.pageRoute: (BuildContext context) => const ProfilePage(),
   GetInfoPage.pageRoute: (BuildContext context) => const GetInfoPage(),
   GetCodePage.pageRoute: (BuildContext context) => const GetCodePage(),
-  ChannelPage.pageRoute: (BuildContext context) => const ChannelPage(),
-  ChannelInfoPage.pageRoute: (BuildContext context) => const ChannelInfoPage(),
+  ChannelPage.pageRoute: (BuildContext context) => ChannelPage(),
+  ChannelInfoPage.pageRoute: (BuildContext context) => ChannelInfoPage(),
 };

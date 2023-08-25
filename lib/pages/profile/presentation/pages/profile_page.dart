@@ -56,6 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(height: 5),
                       Text("شماره کارت: " + (state.profile.ccNumber ?? "")),
                       Container(height: 50),
+                      ElevatedButton(
+                        onPressed: () {
+                          getIt<ProfileCubit>().clearAccountBalance();
+                        },
+                        child: Text("تسویه حساب"),
+                      ),
+                      Container(height: 50),
                       TextField(
                         controller: firstNameController,
                         decoration: InputDecoration(
